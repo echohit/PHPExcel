@@ -29,7 +29,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
-date_default_timezone_set('Europe/London');
+date_default_timezone_set('PRC');
 
 if (PHP_SAPI == 'cli')
 	die('This example should only be run from a Web Browser');
@@ -41,13 +41,17 @@ require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
 //	Change these values to select the Rendering library that you wish to use
 //		and its directory location on your server
 //$rendererName = PHPExcel_Settings::PDF_RENDERER_TCPDF;
-$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
-//$rendererName = PHPExcel_Settings::PDF_RENDERER_DOMPDF;
-//$rendererLibrary = 'tcPDF5.9';
-$rendererLibrary = 'mPDF5.4';
-//$rendererLibrary = 'domPDF0.6.0beta3';
-$rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererLibrary;
+$rendererName = PHPExcel_Settings::PDF_RENDERER_TCPDF;
 
+//echo $rendererName.'<br>';
+
+//$rendererName = PHPExcel_Settings::PDF_RENDERER_DOMPDF;
+$rendererLibrary = '\tcPDF';
+//$rendererLibrary = '\PDF5.4';
+//$rendererLibrary = 'domPDF0.6.0beta3';
+//$rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererLibrary;
+$rendererLibraryPath = dirname(__FILE__).$rendererLibrary;
+//echo $rendererLibraryPath.'<br>';
 
 // Create new PHPExcel object
 $objPHPExcel = new PHPExcel();
@@ -67,12 +71,14 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Hello')
             ->setCellValue('B2', 'world!')
             ->setCellValue('C1', 'Hello')
-            ->setCellValue('D2', 'world!');
+            ->setCellValue('D2', 'world!')
+			->setCellValue('A6',iconv('gbk','utf-8','你好'));
+			
 
 // Miscellaneous glyphs, UTF-8
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A4', 'Miscellaneous glyphs')
-            ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
+            ->setCellValue('A5', 'echo');
 
 // Rename worksheet
 $objPHPExcel->getActiveSheet()->setTitle('Simple');
@@ -95,10 +101,10 @@ if (!PHPExcel_Settings::setPdfRenderer(
 
 
 // Redirect output to a client’s web browser (PDF)
-header('Content-Type: application/pdf');
-header('Content-Disposition: attachment;filename="01simple.pdf"');
-header('Cache-Control: max-age=0');
+//header('Content-Type: application/pdf');
+//header('Content-Disposition: attachment;filename="01simple.pdf"');
+//header('Cache-Control: max-age=0');
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'PDF');
-$objWriter->save('php://output');
+$objWriter->save('1.pdf');
 exit;

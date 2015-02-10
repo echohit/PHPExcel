@@ -172,7 +172,7 @@ echo 'Call time to reload Workbook was ' , sprintf('%.4f',$callTime) , " seconds
 echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 
-var_dump($objPHPExcel->getActiveSheet()->toArray());
+//var_dump($objPHPExcel->getActiveSheet()->toArray());
 
 
 // Echo memory peak usage

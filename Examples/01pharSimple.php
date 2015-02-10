@@ -29,13 +29,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
-date_default_timezone_set('Europe/London');
+date_default_timezone_set('PRC');
 
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 /** Include PHPExcel */
-require_once '../Build/PHPExcel.phar';
-
+//require_once '../Build/PHPExcel.phar';
+require_once '../Classes/PHPExcel.php';
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
@@ -63,7 +63,8 @@ $objPHPExcel->setActiveSheetIndex(0)
 // Miscellaneous glyphs, UTF-8
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A4', 'Miscellaneous glyphs')
-            ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
+            ->setCellValue('A5', 'echo')
+			->setCellValue('A6', '你好');
 
 // Rename worksheet
 echo date('H:i:s') , " Rename worksheet" , EOL;
